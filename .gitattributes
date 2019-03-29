@@ -1,0 +1,2 @@
+“*.xmind filter=lfs diff=lfs merge=lfs -text
+*.xmind filter=lfs diff=lfs merge=lfs -text
