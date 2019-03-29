@@ -1,0 +1,2 @@
+查看文件编码格式：file abc.html
+修改编码格式：iconv -f GBK -t utf-8 abc.html -o abc.html

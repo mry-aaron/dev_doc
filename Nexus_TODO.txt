@@ -1,0 +1,42 @@
+
+ - 1.解决没外网使用Maven库
+ 	- 在pom.xml文件中配置：
+ 		<repositories>
+			<repository>
+				<id>maven-public</id>
+				<name>maven-public</name>
+				<url>http://localhost:8081/repository/maven-public/</url>
+				<snapshots>
+					<enabled>true</enabled>
+				</snapshots>
+				<releases>
+					<enabled>true</enabled>
+				</releases>
+			</repository>
+		</repositories>
+		
+ - 2.将自己编辑的工程部署到Nexus Repository
+ 	- 2.1 编辑Maven安装目录中的settings.xml文件（确定与Eclipse配置路径一致的文件）
+	- 2.2 在pom.xml文件中配置：
+		<distributionManagement>
+			<repository>
+				<id>maven-releases</id>
+				<name>Nexus Release Repository</name>
+				<url>http://localhost:8081/repository/maven-releases/</url>
+			</repository>
+			<snapshotRepository>
+				<id>maven-snapshots</id>
+				<name>Nexus Snapshots Repository</name>
+				<url>http://localhost:8081/repository/maven-snapshots/</url>
+			</snapshotRepository>
+		</distributionManagement> 
+	- 2.3 工程右键Run As -> Maven Build -> Goals: deploy
+ 	
+ - 3.将jar包上传到Nexus Repository以供公司内部人员使用
+ 	- 在pom.xml所在目录启动DOS窗口，执行命令：
+ 		Maven安装目录/bin/mvn deploy:deploy-file -DgroupId=com.oracle 
+ 		-DartifactId=JAR名称（自定义） -Dversion=自定义 -Dpackaging=jar 
+ 		-Dfile=JAR文件全路径 -Durl=http://localhost:8081/repository/maven-releases/ 
+ 		-DrepositoryId=maven-releases
+ 	- 注：以上命令为一条不可分开执行，不可回车换行
+ 

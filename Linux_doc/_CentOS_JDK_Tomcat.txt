@@ -1,0 +1,40 @@
+﻿
+-- CentOS安装JDK
+-- Begin
+	-- 1\
+		-- #java -version
+		-- #rpm -qa | grep java
+		-- #rpm -e --nodeps FileName
+		-- #java -version
+	-- 2\
+		-- 2.1 下载JDK：#wget --no-cookie --header "Cookie: oraclelicense=accept-securebackup-cookie" 链接地址
+		-- 2.2 解压缩到指定目录：#tar -zxvf 文件名
+		-- 2.3 配置环境变量：#vim /etc/profile
+			-- # Java environment
+				export JAVA_HOME=/usr/java/jdk1.8
+				export CLASSPATH=.:$JAVA_HOME/jre/lib/rt.jar:$JAVA_HOME/lib/dt.jar:$JAVA_HOME/lib/tools.jar
+				export PATH=$PATH:$JAVA_HOME/bin
+		-- 2.4 添加完成后保存退出：#wq
+		-- 2.5 使profile生效：#source /etc/profile
+		-- 2.6 测试：#java -version
+-- End
+
+-- CentOS安装Tomcat
+-- Begin
+	-- 1.下载Tomcat：#wget 链接地址
+	-- 2.解压缩到指定目录：#tar -zxvf 文件名称
+	-- 3.编辑bin/startup.sh、bin/shutdown.sh添加环境变量：#vim startup.sh
+		-- # Tomcat environment
+			export JAVA_HOME=/usr/java/jdk1.8
+			export TOMCAT_HOME=/usr/local/tomcat/tomcat8.0
+			export CATALINA_HOME=/usr/local/tomcat/tomcat8.0
+			export PATH=$PATH:$TOMCAT_HOME/bin
+	-- 4.测试：启动、停止
+	-- 5.Linux对外只默认开放了22端口，需要手动开放其他需要的端口：
+		- 开放端口号：firewall-cmd --zone=public --add-port=8080/tcp --permanent
+		- 关闭端口号：firewall-cmd --zone=public --remove-port=8080/tcp --permanent
+		- 更新防火墙：firewall-cmd --reload
+		- 查看以开放的端口号：firewall-cmd --zone=public --list-ports
+-- End
+	
+		

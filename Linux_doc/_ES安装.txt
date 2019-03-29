@@ -1,0 +1,21 @@
+1. 下载ES压缩包，并解压
+2. 使用root用户给指定用户设置ES目录的执行权限：chown linux用户名 elasticsearch安装目录 -R 
+3. 启动（使用非root用户）：bin/elasticsearch
+4. 允许其他主机访问配置：编辑config/elasticsearch.yml文件，配置network.host: 当前主机IP
+	-- 启动时若出现错误：
+		ERROR: [2] bootstrap checks failed
+		[1]: max file descriptors [4096] for elasticsearch process is too low, increase to at least [65536]
+		[2]: max virtual memory areas vm.max_map_count [65530] is too low, increase to at least [262144]
+	-- 解决方案：
+		【1】修改/etc/security/limits.conf在最后添加
+			* soft nofile 65536
+			* hard nofile 131072
+
+		【2】1、切换到root用户修改配置/etc/sysctl.conf,添加
+			vm.max_map_count=655360
+			并执行命令：
+			sysctl -p
+		然后，重新启动elasticsearch，即可启动成功。
+
+* Linux开放9200、9300端口
+
